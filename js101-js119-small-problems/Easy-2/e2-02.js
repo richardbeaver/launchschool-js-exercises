@@ -36,7 +36,7 @@ function getNameInput(prompt) {
 
 function response(name) {
   if (name.endsWith('!')) {
-    return `HELLO ${name.slice(0, -1).toUpperCase()}. WHY ARE WE SCREAMING?`
+    return `HELLO ${name.slice(0, -1).toUpperCase()}. WHY ARE WE SCREAMING?`;
   }
   return `Hello ${name}.`;
 }
