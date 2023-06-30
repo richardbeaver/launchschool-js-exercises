@@ -27,3 +27,56 @@
 
 //
 
+const rlSync = require('readline-sync');
+
+function suffix(number) {
+  if (number === 1) return 'st';
+  if (number === 2) return 'nd';
+  if (number === 3) return 'rd';
+  else return 'th';
+}
+
+function displayPrompt(prompt) {
+  console.log(`=> ${prompt}`);
+}
+
+function numberValid(number) {
+  return number.trimStart() !== '' && !Number.isNaN(Number(number));
+}
+
+function getNumberInput(promptMessage, errorMessage, validInputFunc) {
+  let number;
+  while (true) {
+    displayPrompt(promptMessage);
+    number = rlSync.question();
+    if (validInputFunc(number)) break;
+    displayPrompt(errorMessage);
+  }
+
+  return Number(number);
+}
+
+//
+
+let numbers = [];
+
+for (let idx = 0; idx < 6; idx += 1) {
+  let inputPrompt = `Enter the ${idx + 1}${suffix(idx + 1)} number:`;
+  let lastPrompt = 'Enter the last number:';
+  let errorPrompt = 'Please enter a valid number';
+
+  let number = getNumberInput(
+    idx < 5 ? inputPrompt : lastPrompt, errorPrompt, numberValid
+  );
+  numbers.push(number);
+}
+
+let lastNumber = numbers.at(-1);
+let result = numbers.slice(0, -1).includes(lastNumber);
+
+let output =
+  `The number ${lastNumber} ${
+    result ? 'appears' : 'does not appear'
+  } in ${numbers.slice(0, -1).join(', ')}.`;
+
+displayPrompt(output);
