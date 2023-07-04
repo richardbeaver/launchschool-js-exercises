@@ -18,27 +18,26 @@ output: a 2-element array containing the numbers that are closest together
 
 1. If order of resulting numbers did not matter:
 - Create a copy of the input array and sort it
-- Create variable `minDifference` (value: `undefined`)
+- Create variable `minDifference` (value: `Infinity`)
 - Create varible `minDiffIdx` (value: 0)
 - For every index, `idx`, in [0, length of the array - 1):
   - Get the difference between elements at indexes `idx` and `idx` + 1
-  - If `minDifference` is undefined OR difference < `minDifference`:
+  - If difference < `minDifference`:
     - Reassign `minDifference` to this result
     - Reassign `minDiffIdx` to `idx`
 - Return array of element at `minDiffIdx` and `minDiffIdx` + 1
 
-- (If order mattered, we could find the numbers' original indexes in input
+- (If order matters, we could find the numbers' original indexes in input
   array using the `indexOf` method, and place the one with the lower index
   first in the resulting array)
 
 
 2. Without sorting:
 - Create variable `minDiffIdxs` (value: [0, 1])
-- Create variable `minDiff` (value: `undefined`)
+- Create variable `minDiff` (value: `Infinity`)
 - For every index, `idx1`, in [0, input length - 1):
   - For every index, `idx2`, in [idx1 + 1, input length):
-    - If `minDiff` is `undefined` OR difference between numbers at indexes is
-      smaller than `minDiff`:
+    - If difference between numbers at indexes is smaller than `minDiff`:
       - Reassign `minDiff` and array of indexes
 - Return elements at `minDiffIdxs`
 
@@ -48,13 +47,13 @@ output: a 2-element array containing the numbers that are closest together
 function closestNumbers(numbers) {
   let sortedNumbers = numbers.slice().sort((a, b) => a - b);
 
-  let minDiff = undefined;
+  let minDiff = Infinity;
   let minDiffIdx = 0;
 
   for (let idx = 0; idx < sortedNumbers.length - 1; idx += 1) {
     let curDiff = Math.abs(sortedNumbers[idx] - sortedNumbers[idx + 1]);
 
-    if (minDiff === undefined || curDiff < minDiff) {
+    if (curDiff < minDiff) {
       minDiff = curDiff;
       minDiffIdx = idx;
     }
@@ -66,14 +65,14 @@ function closestNumbers(numbers) {
 // 2.
 function closestNumbers2(numbers) {
   let minDiffIdxs = [0, 1];
-  let minDiff = undefined;
+  let minDiff = Infinity;
 
   for (let idx1 = 0; idx1 < numbers.length - 1; idx1 += 1) {
     for (let idx2 = idx1 + 1; idx2 < numbers.length; idx2 += 1) {
 
       let curDiff = Math.abs(numbers[idx1] - numbers[idx2]);
 
-      if (minDiff === undefined || curDiff < minDiff) {
+      if (curDiff < minDiff) {
         minDiff = curDiff;
         minDiffIdxs = [idx1, idx2];
       }
