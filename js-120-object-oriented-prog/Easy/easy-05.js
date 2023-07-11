@@ -32,7 +32,7 @@ class Animal {
 
 class Cat extends Animal {
   constructor(name, age, status) {
-    super(name, age, 4, 'cat', status);
+    super(name, age, 4, "cat", status);
   }
   introduce() {
     return `${super.introduce()} Meow meow!`;
@@ -59,3 +59,57 @@ let dog = new Dog("Fido", 4, "hungry", "Ben");
 console.log(dog.introduce() === "Hello, my name is Fido and I am 4 years old and hungry.");
 console.log(dog.greetMaster() === "Hello Ben! Woof, woof!");
 // logs true true
+
+// ===========================================================
+// ===========================================================
+
+// Same exercise using contructors/prototypes:
+
+// ==========
+
+function Animal(name, age, legs, species, status) {
+  this.name = name;
+  this.age = age;
+  this.legs = legs;
+  this.species = species;
+  this.status = status;
+}
+
+Animal.prototype.introduce = function() {
+  return `Hello, my name is ${this.name} and I am ${this.age} years old and ${this.status}.`;
+};
+
+// ==========
+
+function Cat(name, age, status) {
+  // Animal.call(this, name, age, 4, "cat", status);
+
+  let superClass = Object.getPrototypeOf(Cat.prototype);
+  superClass.constructor.call(this, name, age, 4, "cat", status);
+}
+
+Cat.prototype = Object.create(Animal.prototype);
+Cat.prototype.constructor = Cat;
+
+Cat.prototype.introduce = function() {
+  let superClass = Object.getPrototypeOf(Cat.prototype);
+  return `${superClass.introduce.call(this)} Meow meow!`;
+};
+
+// ==========
+
+function Dog(name, age, status, master) {
+  // Animal.call(this, name, age, 4, "dog", status);
+
+  let superClass = Object.getPrototypeOf(Dog.prototype);
+  superClass.constructor.call(this, name, age, 4, "dog", status);
+
+  this.master = master;
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.greetMaster = function() {
+  return `Hello ${this.master}! Woof, woof!`;
+};
