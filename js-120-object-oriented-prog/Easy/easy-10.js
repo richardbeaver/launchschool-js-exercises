@@ -9,12 +9,13 @@
 //
 
 class Pet {
-  constructor(species, name) {
-    this.species = species;
+  constructor(animal, name) {
+    this.animal = animal;
     this.name = name;
   }
+
   info() {
-    return `a ${this.species} named ${this.name}`;
+    return `a ${this.animal} named ${this.name}`;
   }
 }
 
@@ -23,12 +24,19 @@ class Owner {
     this.name = name;
     this.pets = [];
   }
+
+  getName() {
+    return this.name;
+  }
+
   addPet(pet) {
     this.pets.push(pet);
   }
+
   numberOfPets() {
     return this.pets.length;
   }
+
   printPets() {
     this.pets.forEach((pet) => console.log(pet.info()));
   }
@@ -40,21 +48,19 @@ class Shelter {
   }
 
   adopt(owner, pet) {
-    if (!this.owners[owner.name]) {
-      this.owners[owner.name] = owner;
+    let name = owner.getName();
+    if (!this.owners[name]) {
+      this.owners[name] = owner;
     }
     owner.addPet(pet);
   }
 
   printAdoptions() {
-    let ownerEntries = Object.entries(this.owners);
-
-    ownerEntries.forEach((entry) => {
+    Object.entries(this.owners).forEach((entry) => {
       let [ name, owner ] = entry;
 
       console.log(`${name} has adopted the following pets:`);
       owner.printPets();
-
       console.log("");
     });
   }
