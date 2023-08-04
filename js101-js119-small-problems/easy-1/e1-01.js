@@ -22,7 +22,10 @@ output: boolean for whether the input's absolute value is odd
 Rules:
 - input can be any parity
 - input will always be a valid integer
-
+- Will need to get absolute value of input - remainder of division can change
+  when working with odd numbers
+  - Third test case above does fail if we check parity of original input values
+    instead of their absolute value
 
 - Algorithm
 
