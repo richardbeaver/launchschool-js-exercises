@@ -44,17 +44,17 @@ Rules:
 */
 
 // 1.
-// function multisum(inputNumber) {
-//   let sum = 0;
+function multisum(inputNumber) {
+  let sum = 0;
 
-//   for (let curNum = 1; curNum <= inputNumber; curNum += 1) {
-//     if (curNum % 3 === 0 || curNum % 5 === 0) {
-//       sum += curNum;
-//     }
-//   }
+  for (let curNum = 1; curNum <= inputNumber; curNum += 1) {
+    if (curNum % 3 === 0 || curNum % 5 === 0) {
+      sum += curNum;
+    }
+  }
 
-//   return sum;
-// }
+  return sum;
+}
 
 // 2.
 function multisum(inputNumber) {
