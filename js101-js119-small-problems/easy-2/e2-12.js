@@ -23,19 +23,24 @@ Rules:
 - All non-negative inputs get negated (includes 0)
 - All negative inputs get returned as-is
 
-- Algorithm
+Algorithm
 
-1. If input number is greater than or equal to 0
-  1. Return input number multiplied by -1
-2. Return input number
+1.
+- If input number is greater than or equal to 0
+  - Return input number multiplied by -1
+- Return input number
 
-1. Return (the absolute value of the input number) multiplied by -1
+2.
+- Return (the absolute value of the input number) multiplied by -1
+
 */
 
-// function negative(number) {
-//   return number >= 0 ? number * -1 : number;
-// }
+// 1.
+function negative(number) {
+  return number >= 0 ? number * -1 : number;
+}
 
+// 2.
 function negative(number) {
   return Math.abs(number) * -1;
 }

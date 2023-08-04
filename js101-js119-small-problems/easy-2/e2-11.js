@@ -7,11 +7,11 @@
 
 // Examples:
 console.log(
-  centerOf('I Love JavaScript'), // "a"
-  centerOf('Launch School'),     // " "
-  centerOf('Launch'),            // "un"
-  centerOf('Launchschool'),      // "hs"
-  centerOf('x'),                 // "x"
+  centerOf('I Love JavaScript') === "a",
+  centerOf('Launch School')     === " ",
+  centerOf('Launch')            === "un",
+  centerOf('Launchschool')      === "hs",
+  centerOf('x')                 === "x",
 );
 
 //
@@ -26,22 +26,24 @@ Rules:
 - If given odd-length string, return middle character
 - If given even-length string, return middle 2 characters
 
-- Algorithm
+Algorithm
 
-1. Declare a variable `middleIdx` and initialize it to
-  (the ceiling of (half the input string's length - 1))
-2. If the length of input string is even
-  1. Return the substring from indexes [`middleIdx`, (`middleIdx` + 1)] of
+- Get the "middle index" of the input string:
+  - The ceiling of (half the input string's length - 1)
+- If the length of input string is even:
+  - Return the substring from indexes [`middleIdx`, (`middleIdx` + 1)] of
     input string
-3. Return the substring at index `middleIdx` of input string
+- Else:
+  - Return the character at index `middleIdx` of input string
+
 */
 
 function centerOf(string) {
   let middleIdx = Math.ceil((string.length / 2) - 1);
 
-  if (string.length % 2 === 0) {
-    return string.slice(middleIdx, middleIdx + 2);
+  if (string.length % 2 !== 0) {
+    return string.at(middleIdx);
   }
 
-  return string.slice(middleIdx, middleIdx + 1);
+  return string.slice(middleIdx, middleIdx + 2);
 }

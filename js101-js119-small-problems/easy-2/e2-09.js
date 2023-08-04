@@ -15,13 +15,13 @@
 inputs: `min` and `max` numbers
 outputs: a random number in [`min`, `max`]
 
-- Algorithm
+Algorithm
 
-1. Get a random number in [0, 1)
-2. Multiply by (max - min + 1)
-3. Take the floor
-4. Add `min`
-5. Return result
+- Get a random number in [0, 1)
+- Multiply by (max - min + 1)
+- Take the floor
+- Add `min`
+- Return result
 
 */
 
