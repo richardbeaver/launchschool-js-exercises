@@ -26,18 +26,19 @@ Rules:
 - This will end up being all elements at even indexes
 - Empty arrays will return an empty array
 
-- Algorithm
+Algorithm
 
-1. Declare a variable `oddItems` and initialize to an empty array
-2. For each index, `i`, in [0, length of input array - 1], incrementing by 2:
-  1. Add the element at index `i` of the input array to `oddItems`
-3. Return `oddItems`
+- Declare a variable `oddItems` and initialize to an empty array
+- For each index, `i`, in [0, length of input array - 1], incrementing by 2:
+  - Add the element at index `i` of the input array to `oddItems`
+- Return `oddItems`
+
 */
 
 function oddities(array) {
   let oddItems = [];
-  for (let i = 0; i < array.length; i += 2) {
-    oddItems.push(array[i]);
+  for (let idx = 0; idx < array.length; idx += 2) {
+    oddItems.push(array[idx]);
   }
   return oddItems;
 }

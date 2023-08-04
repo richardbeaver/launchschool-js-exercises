@@ -14,9 +14,9 @@ console.log(multiply(5, 3) === 15); // logs true
 inputs: two arguments
 outputs: the result of multiplying the two inputs
 
-- Algorithm
+Algorithm
 
-1. Return the result of multiplying the two inputs
+- Return the result of multiplying the two inputs
 
 */
 
