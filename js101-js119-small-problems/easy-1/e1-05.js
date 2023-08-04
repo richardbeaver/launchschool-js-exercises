@@ -2,8 +2,9 @@
 
 // Create a simple tip calculator. The program should prompt for a bill
 // amount and a tip rate. The program must compute the tip, and then log
-// both the tip and the total amount of the bill to the console. You can
-// ignore input validation and assume that the user will enter numbers.
+// both the tip and the total amount of the bill to the console.
+
+// You can ignore input validation and assume that the user will enter numbers.
 
 // Example:
 
@@ -15,47 +16,43 @@
 
 //
 
+// Using input validation:
+
 const rlSync = require('readline-sync');
 
-const billPrompt = 'What is the bill?';
-const tipPercentagePrompt = 'What is the tip percentage?';
-const numberInvalidPrompt = 'Please enter a valid number.';
-
-const tipResult = (tipDollars) => `The tip is $${tipDollars.toFixed(2)}`;
-const totalResult = (totalDollars) => `The total is $${totalDollars.toFixed(2)}`;
+const BILL_PROMPT = 'What is the bill?';
+const TIP_PRECENTAGE_PROMPT = 'What is the tip percentage?';
+const NUMBER_INVALID_PROMPT = 'Please enter a valid number.';
 
 function displayPrompt(prompt) {
   console.log(`=> ${prompt}`);
 }
 
-function numberInvalid(number) {
-  return number.trimStart() === ''
-    || Number.isNaN(Number(number))
-    || Number(number) < 0;
+function numberValid(number) {
+  return number.trimStart() !== ''
+    && !Number.isNaN(Number(number))
+    && Number(number) >= 0;
 }
 
 function getNumberInput(prompt) {
-  displayPrompt(prompt);
-  let result = rlSync.prompt();
-
-  while (numberInvalid(result)) {
-    displayPrompt(numberInvalidPrompt);
-    result = rlSync.prompt();
+  let number;
+  while (true) {
+    displayPrompt(prompt);
+    number = rlSync.question();
+    if (numberValid(number)) break;
+    displayPrompt(NUMBER_INVALID_PROMPT);
   }
 
-  return result;
+  return Number(number);
 }
 
 // =========================================================
 
-// Get bill and tip percentage
-let billAmount = parseFloat(getNumberInput(billPrompt));
-let tipPercentage = parseFloat(getNumberInput(tipPercentagePrompt));
+let bill = getNumberInput(BILL_PROMPT);
+let tipPercentage = getNumberInput(TIP_PRECENTAGE_PROMPT);
 
-// Calculate tip and total
-let tip = billAmount * (tipPercentage / 100);
-let total = billAmount + tip;
+let tip = bill * (tipPercentage / 100);
+let total = bill + tip;
 
-// Display results
-displayPrompt(tipResult(tip));
-displayPrompt(totalResult(total));
+displayPrompt(`The tip is $${tip.toFixed(2)}`);
+displayPrompt(`The total is $${total.toFixed(2)}`);
