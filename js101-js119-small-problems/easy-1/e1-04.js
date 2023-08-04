@@ -19,50 +19,47 @@
 
 //
 
+// Using input validation:
+
 const rlSync = require('readline-sync');
 
 const SQMETERS_TO_SQFEET = 10.7639;
 
-const lengthPrompt = 'Enter the length of the room in meters:';
-const widthPrompt = 'Enter the width of the room in meters:';
-const numberInvalidPrompt = 'Please enter a valid number.';
-
-const areaResult = (areaSquareMeters) => {
-  let areaSquareFeet = areaSquareMeters * SQMETERS_TO_SQFEET;
-  return `The area of the room is ${areaSquareMeters.toFixed(2)} square meters ` 
-        + `(${areaSquareFeet.toFixed(2)} square feet).`
-};
+const LENGTH_PROMPT = 'Enter the length of the room in meters:';
+const WIDTH_PROMPT = 'Enter the width of the room in meters:';
+const NUMBER_INVALID_PROMPT = 'Please enter a valid number.';
 
 function displayPrompt(message) {
   console.log(`=> ${message}`);
 }
 
-function numberInvalid(number) {
-  return number.trimStart() === ''
-    || Number.isNaN(Number(number))
-    || Number(number) <= 0;
+function numberValid(number) {
+  return number.trimStart() !== ''
+    && !Number.isNaN(Number(number))
+    && Number(number) > 0;
 }
 
 function getNumberInput(prompt) {
-  displayPrompt(prompt);
-  let result = rlSync.prompt();
-
-  while (numberInvalid(result)) {
-    displayPrompt(numberInvalidPrompt);
-    result = rlSync.prompt();
+  let number;
+  while (true) {
+    displayPrompt(prompt);
+    number = rlSync.question();
+    if (numberValid(number)) break;
+    displayPrompt(NUMBER_INVALID_PROMPT);
   }
 
-  return result;
+  return Number(number);
 }
 
 // =========================================================
 
-// Get user inputs
-let length = parseInt(getNumberInput(lengthPrompt), 10);
-let width = parseInt(getNumberInput(widthPrompt), 10);
+let length = getNumberInput(LENGTH_PROMPT);
+let width = getNumberInput(WIDTH_PROMPT);
 
-// Compute area
-let areaSquareMeters = length * width;
+let squareMeters = length * width;
+let squareFeet = squareMeters * SQMETERS_TO_SQFEET;
 
-// Display result
-displayPrompt(areaResult(areaSquareMeters));
+displayPrompt(
+  `The area of the room is ${squareMeters.toFixed(2)} square meters ` +
+  `(${squareFeet.toFixed(2)} square feet).`
+);
