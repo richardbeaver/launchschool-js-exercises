@@ -5,14 +5,22 @@
 
 //
 
-for (let i = 1; i <= 99; i += 2) {
-  console.log(i);
+for (let num = 1; num <= 99; num += 2) {
+  console.log(num);
 }
 
 //
 
-for (let i = 0; i <= 99; i += 1) {
-  if (i % 2 === 1) {
-    console.log(i);
+for (let num = 0; num <= 99; num += 1) {
+  if (num % 2 === 1) {
+    console.log(num);
   }
 }
+
+//
+
+Array.from({ length: 99 }, (_, idx) => idx + 1).forEach((num) => {
+  if (num % 2 === 1) {
+    console.log(num);
+  }
+});
