@@ -27,10 +27,9 @@ Rules:
 
 - Algorithm
 
-1. Declare a variable `fullName` and initialize it to the concatenation of the
-  items in the array input each separated by a space
-2. Return the concatenation of a greeting using `fullName` and `title` and 
-  `occupation` values from the input object
+- Join the name items array by spaces to a full name
+- Return a string greeting matching the example using full name and object
+  properties
 
 */
 

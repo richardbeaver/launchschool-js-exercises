@@ -23,9 +23,9 @@ outptus: result of squaring number
 Rules:
 - Use defined `multiply` function in `square` function
 
-- Algorithm
+Algorithm
 
-1. Return the result of calling `multiply` passing in the given input for
+- Return the result of calling `multiply` passing in the given input for
   each argument
 
 */
@@ -34,7 +34,7 @@ function square(number) {
   return multiply(number, number);
 }
 
-// Further Exploration: 
+// Further Exploration:
 
 // What if we wanted generalize this function to a "power to the n" type
 // function: cubed, to the 4th power, to the 5th, etc. How would we go about
@@ -60,19 +60,19 @@ outptus: result of exponentiation
 Rules:
 - Use defined `multiply` function in `exponent` function
 
-- Algorithm
+Algorithm
 
-1. Declare a variable `result` and initialize it to 1
-2. Execute `exponent` times:
-  1. Reassign `result` to the result of multiplying `result` and the number input
-3. Return result
+- Declare a variable `result` and initialize it to 1
+- Execute `exponent` times:
+  - Reassign `result` to the result of multiplying `result` and the number input
+- Return result
 
 */
 
 function exponentiate(number, exponent) {
   let result = 1;
 
-  for (let i = 0; i < exponent; i += 1) {
+  for (let count = 1; count <= exponent; count += 1) {
     result = multiply(result, number);
   }
 

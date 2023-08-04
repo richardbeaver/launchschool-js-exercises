@@ -23,15 +23,13 @@ Rules:
 - a word is any sequence of non-blank characters separated by spaces
 - input string will contain at least 2 words
 
-- Algorithm
+Algorithm
 
-1. Declare a variable `words` and initialize it to the result of splitting
-  the input string by spaces into an array of strings
-2. Return the second to last string in `words`
+- Split input string by spaces into words
+- Return second to last element in resulting array
 
 */
 
 function penultimate(string) {
-  let words = string.split(' ');
-  return words.at(-2);
+  return string.split(' ').at(-2);
 }
