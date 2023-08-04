@@ -29,22 +29,48 @@ Rules:
 
 - Algorithm
 
-1. Declare a variable `sum` and initialize it to 0
-2. For each number, `number`, from 1 to input, inclusive:
-  1. If `number` is a multiple of 3 or is a multiple of 5:
-    1. Add `number` to `sum`
-3. Return `sum`
+1.
+- Declare a variable `sum` and initialize it to 0
+- For each number, `number`, from 1 to input, inclusive:
+  - If `number` is a multiple of 3 or is a multiple of 5:
+    - Add `number` to `sum`
+- Return `sum`
+
+2.
+- Create an array of all numbers in [1, input number]
+- Could reduce array by adding only the multiples to the accumulator
+- Or can filter the array to only the multiples and sum
 
 */
 
-function multisum(posInt) {
-  let sum = 0;
+// 1.
+// function multisum(inputNumber) {
+//   let sum = 0;
 
-  for (let number = 1; number <= posInt; number += 1) {
-    if (number % 3 === 0 || number % 5 === 0) {
-      sum += number;
-    }
-  }
+//   for (let curNum = 1; curNum <= inputNumber; curNum += 1) {
+//     if (curNum % 3 === 0 || curNum % 5 === 0) {
+//       sum += curNum;
+//     }
+//   }
 
-  return sum;
+//   return sum;
+// }
+
+// 2.
+function multisum(inputNumber) {
+  let numbers = Array.from({ length: inputNumber }, (_, idx) => idx + 1)
+
+  // Reducing array
+  return numbers.reduce((sum, num) => {
+    return (num % 3 === 0 || num % 5 === 0) ? sum + num : sum;
+  }, 0);
+}
+
+// 3.
+function multisum(inputNumber) {
+  let numbers = Array.from({ length: inputNumber }, (_, idx) => idx + 1)
+
+  // Filtering to only multiples and reducing
+  return numbers.filter((num) => num % 3 === 0 || num % 5 === 0)
+    .reduce((sum, num) => sum + num, 0);
 }
