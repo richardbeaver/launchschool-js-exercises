@@ -4,7 +4,8 @@
 // are truthy, a falsey value if both operands are falsey. The && operator
 // returns a truthy value if both of its operands are truthy, and a falsey
 // value if either operand is falsey. This works great until you need only
-// one, but not both, of two conditions to be truthy: the so-called exclusive or.
+// one, but not both, of two conditions to be truthy: the so-called exclusive
+// or.
 
 // In this exercise, you will write a function named xor that takes two
 // arguments, and returns true if exactly one of its arguments is truthy,
@@ -29,28 +30,29 @@ Rules:
 - One argument must be truthy value and the other a falsey value for the
   function to return true
 
-- Algorithm
+Algorithm
 
-1. Declare a variable `bool1` and initialize to the boolean evaluation of the
-  first argument input
-2. Decalre a variable `bool2` and initialize to the boolean evaluation of the
-  second argument input
-3. If `bool1` is true: return (not `bool2`)
-4. Return `bool2`
+1.
+- If first input is truthy
+  - Return whether second input is falsely
+- Else
+  - Return whether second input is truthy
 
-1. Return the boolean coercion of the result of evaluating:
+2.
+- Return the boolean coercion of the result of evaluating:
   ((arg1 and not arg2) or (not arg1 and arg2))
 
 */
 
-// function xor(arg1, arg2) {
-//   let bool1 = !!arg1;
-//   let bool2 = !!arg2;
+// 1.
+function xor(arg1, arg2) {
+  if (arg1) {
+    return !arg2;
+  }
+  return !!arg2;
+}
 
-//   if (bool1) return !bool2;
-//   return bool2;
-// }
-
+// 2.
 function xor(arg1, arg2) {
   return !!((arg1 && !arg2) || (!arg1 && arg2));
 }
