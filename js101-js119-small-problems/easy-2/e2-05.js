@@ -20,44 +20,60 @@
 
 //
 
+// Using input validation:
+
 const rlSync = require('readline-sync');
 
-const firstNumberPrompt = 'Enter the first number:';
-const secondNumberPrompt = 'Enter the second number:';
-const posIntInvalidPrompt = 'Please enter a postive integer.';
+const FIRST_NUMBER_PROMPT = 'Enter the first number:';
+const SECOND_NUMBER_PROMPT = 'Enter the second number:';
+const NUMBER_INVALID_PROMPT = 'Please enter a postive integer.';
+
+const OPERATIONS = {
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+  '*': (a, b) => a * b,
+  '/': (a, b) => Math.floor(a / b),  // Example shows integer division
+  '%': (a, b) => a % b,
+  '**': (a, b) => a ** b,
+};
 
 function displayPrompt(prompt) {
   console.log(`==> ${prompt}`);
 }
 
-function posIntInvalid(number) {
-  return number.trimStart() === ''
-    || !Number.isInteger(Number(number))
-    || Number(number) <= 0;
+function numberValid(number) {
+  return number.trimStart() !== ''
+    && Number.isInteger(Number(number))
+    && Number(number) > 0;
 }
 
-function getPosIntInput(prompt) {
-  displayPrompt(prompt);
-  let result = rlSync.prompt();
-
-  while (posIntInvalid(result)) {
-    displayPrompt(posIntInvalidPrompt);
-    result = rlSync.prompt();
+function getNumberInput(prompt) {
+  let number;
+  while (true) {
+    displayPrompt(prompt);
+    number = rlSync.question();
+    if (numberValid(number)) break;
+    displayPrompt(NUMBER_INVALID_PROMPT);
   }
 
-  return result;
+  return Number(number);
 }
 
-// =======================================================
+function getNumbers() {
+  let number1 = getNumberInput(FIRST_NUMBER_PROMPT);
+  let number2 = getNumberInput(SECOND_NUMBER_PROMPT);
+  return [number1, number2];
+}
 
-// Get two numbers
-let number1 = parseInt(getPosIntInput(firstNumberPrompt), 10);
-let number2 = parseInt(getPosIntInput(secondNumberPrompt), 10);
+function displayResult(number1, number2, operationString) {
+  let result = OPERATIONS[operationString](number1, number2);
+  displayPrompt(`${number1} ${operationString} ${number2} = ${result}`);
+}
 
-// Perform calculations and display results
-displayPrompt(`${number1} + ${number2} = ${number1 + number2}`);
-displayPrompt(`${number1} - ${number2} = ${number1 - number2}`);
-displayPrompt(`${number1} * ${number2} = ${number1 * number2}`);
-displayPrompt(`${number1} / ${number2} = ${number1 / number2}`);
-displayPrompt(`${number1} % ${number2} = ${number1 % number2}`);
-displayPrompt(`${number1} ** ${number2} = ${number1 ** number2}`);
+// ============================================
+
+let [ number1, number2 ] = getNumbers();
+
+Object.keys(OPERATIONS).forEach((operationString) => {
+  displayResult(number1, number2, operationString);
+});
