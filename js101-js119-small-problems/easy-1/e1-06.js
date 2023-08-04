@@ -20,71 +20,75 @@
 
 const rlSync = require('readline-sync');
 
-const integerInputPrompt = 'Please enter an integer greater than 0:';
-const integerInvalidPrompt = 'Please enter a valid integer greater than 0.';
+const INTEGER_INPUT_PROMPT = 'Please enter an integer greater than 0:';
+const INTEGER_INVALID_PROMPT = 'Please enter a valid integer greater than 0.';
 
-const operationPrompt = 'Enter "s" to compute the sum, or "p" to compute the product.';
-const operationInvalidPrompt = 'Please enter "s" or "p"';
+const OPERATION_PROMPT = 'Enter "s" to compute the sum, or "p" to compute the product.';
+const OPERATION_INVALID_PROMPT = 'Please enter "s" or "p"';
 
 function displayPrompt(prompt) {
   console.log(`=> ${prompt}`);
 }
 
-function integerInvalid(number) {
-  return number.trimStart() === ''
-    || !Number.isInteger(Number(number))
-    || Number(number) <= 0;
+function isPositiveInteger(number) {
+  return number.trimStart() !== ''
+    && Number.isInteger(Number(number))
+    && Number(number) > 0;
 }
 
-function getInput(promptMessage, errorMessage, inputInvalidFunc) {
-  displayPrompt(promptMessage);
-  let result = rlSync.prompt();
-
-  while (inputInvalidFunc(result)) {
+function getInput(prompt, errorMessage, validInputFunc) {
+  let answer;
+  while (true) {
+    displayPrompt(prompt);
+    answer = rlSync.question();
+    if (validInputFunc(answer)) break;
     displayPrompt(errorMessage);
-    result = rlSync.prompt();
   }
 
-  return result;
+  return answer;
 }
+
+// ===================================
+
+let inputInteger = parseInt(getInput(
+  INTEGER_INPUT_PROMPT, INTEGER_INVALID_PROMPT, isPositiveInteger
+), 10);
+
+let operation = getInput(
+  OPERATION_PROMPT, OPERATION_INVALID_PROMPT, (input) => ['s', 'p'].includes(input)
+);
+
+let numbers = Array.from({ length: inputInteger }, (_, idx) => idx + 1);
+
+let resultType = (operation === 's') ? 'sum' : 'product';
+
+let result = (operation === 's') ?
+  numbers.reduce((sum, num) => sum + num, 0) :
+  numbers.reduce((product, num) => product * num, 1);
+
+displayPrompt(
+  `The ${resultType} of the integers between 1 and ${inputInteger} is ${result}.`
+);
+
+// =========================================================
+// =========================================================
+
+// Could also have computed the sum and product without creating an array by
+// passing the ending number to functions that add / multiply from 1 to the
+// number and return the result:
 
 function computeSum(integer) {
   let result = 0;
-  for (let i = 1; i <= integer; i += 1) {
-    result += i;
+  for (let num = 1; num <= integer; num += 1) {
+    result += num;
   }
   return result;
 }
 
 function computeProduct(integer) {
   let result = 1;
-  for (let i = 1; i <= integer; i += 1) {
-    result *= i;
+  for (let num = 1; num <= integer; num += 1) {
+    result *= num;
   }
   return result;
 }
-
-function operationResult(integer, operationChar) {
-  let operationName;
-  let result;
-  if (operationChar === 's') {
-    operationName = 'sum';
-    result = computeSum(integer);
-  } else {
-    operationName = 'product';
-    result = computeProduct(integer);
-  }
-  
-  return `The ${operationName} of the integers between 1 and ${integer} is ${result}.`;
-};
-
-// =========================================================
-
-// Get integer from user and whether to get sum or product
-let int = getInput(integerInputPrompt, integerInvalidPrompt, integerInvalid);
-let operationChar = getInput(
-  operationPrompt, operationInvalidPrompt, (input) => input !== 's' && input !== 'p'
-);
-
-// Display result
-displayPrompt(operationResult(int, operationChar));

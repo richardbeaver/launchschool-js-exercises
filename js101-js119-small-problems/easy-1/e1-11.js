@@ -36,33 +36,35 @@ Rules:
 
 - Algorithm
 
-1. Declare a variable `stringUTF16Value` and initialize it to 0
-2. For each index, `i`, from 0 to (length of input string - 1)
-  1. Declare a variable `charValue` and initialize it to the UTF-16 value of
+1.
+- Declare a variable `stringUTF16Value` and initialize it to 0
+- For each index, `i`, from 0 to (length of input string - 1)
+  - Declare a variable `charValue` and initialize it to the UTF-16 value of
     the character at index `i` of input string
-  2. Add `charValue` to `stringUTF16Value`
-3. Return `stringUTF16Value`
+  - Add `charValue` to `stringUTF16Value`
+- Return `stringUTF16Value`
 
-
-1. Split input string into an array of characters
-2. Map each character to its UTF-16 value
-3. Return sum of each character UTF-16 value in the array
+2.
+- Split input string into an array of characters
+- Map each character to its UTF-16 value
+- Return sum of each character UTF-16 value in the array
 
 */
 
-// function utf16Value(string) {
-//   let stringUTF16Value = 0;
-  
-//   for (let i = 0; i < string.length; i += 1) {
-//     let charValue = string.charCodeAt(i);
-//     stringUTF16Value += charValue;
-//   }
-
-//   return stringUTF16Value;
-// }
-
+// 1.
 function utf16Value(string) {
-  let chars = string.split('');
-  let utf16Values = chars.map((_, i) => string.charCodeAt(i));
+  let stringUTF16Value = 0;
+
+  for (let idx = 0; idx < string.length; idx += 1) {
+    let charValue = string.charCodeAt(idx);
+    stringUTF16Value += charValue;
+  }
+
+  return stringUTF16Value;
+}
+
+// 2.
+function utf16Value(string) {
+  let utf16Values = string.split('').map((char) => char.charCodeAt(0));
   return utf16Values.reduce((sum, charValue) => sum + charValue, 0);
 }
