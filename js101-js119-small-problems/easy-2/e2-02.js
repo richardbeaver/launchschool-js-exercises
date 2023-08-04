@@ -1,7 +1,8 @@
 // Greeting a user
 
 // Write a program that will ask for user's name. The program will then greet
-//the user. If the user writes "name!" then the computer yells back to the user.
+// the user. If the user writes "name!" then the computer yells back to the
+// user.
 
 // Examples
 
@@ -15,33 +16,34 @@
 
 const rlSync = require('readline-sync');
 
-const namePrompt = 'What is your name?';
-const nameInvalidPrompt = 'Please enter a valid name.';
+const NAME_PROMPT = 'What is your name?';
+const NAME_INVALID_PROMPT = 'Please enter a valid name.';
 
 function displayPrompt(prompt) {
   console.log(`=> ${prompt}`);
 }
 
-function getNameInput(prompt) {
-  displayPrompt(prompt);
-  let result = rlSync.prompt();
-
-  while (result.trimStart().length === 0) {
-    displayPrompt(nameInvalidPrompt);
-    result = rlSync.prompt();
+function getNameInput() {
+  let name;
+  while (true) {
+    displayPrompt(NAME_PROMPT);
+    name = rlSync.question();
+    if (name.trimStart() !== '') break;
+    displayPrompt(NAME_INVALID_PROMPT);
   }
 
-  return result;
+  return name;
 }
 
-function response(name) {
-  if (name.endsWith('!')) {
-    return `HELLO ${name.slice(0, -1).toUpperCase()}. WHY ARE WE SCREAMING?`;
-  }
-  return `Hello ${name}.`;
+function displayGreeting(name) {
+  let greeting = name.endsWith('!') ?
+    `HELLO ${name.slice(0, -1).toUpperCase()}. WHY ARE WE SCREAMING?` :
+    `Hello ${name}.`;
+
+  displayPrompt(greeting);
 }
 
-// =======================================================
+// ====================================
 
-let name = getNameInput(namePrompt);
-displayPrompt(response(name));
+let name = getNameInput();
+displayGreeting(name);

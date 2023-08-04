@@ -15,47 +15,40 @@
 
 const rlSync = require('readline-sync');
 
-const agePrompt = 'What is your age?';
-const retiringAgePrompt = 'At what age would you like to retire?';
-const ageInvalidPrompt = 'Please enter a valid age.';
+const AGE_PROMPT = 'What is your age?';
+const RETIRING_AGE_PROMPT = 'At what age would you like to retire?';
+const AGE_INVALID_PROMPT = 'Please enter a valid age.';
 
 function displayPrompt(prompt) {
   console.log(`=> ${prompt}`);
 }
 
-function ageInvalid(number) {
-  return number.trimStart() === ''
-    || Number.isNaN(Number(number))
-    || Number(number) < 0;
+function ageValid(number) {
+  return number.trimStart() !== ''
+    && !Number.isNaN(Number(number))
+    && Number(number) >= 0;
 }
 
 function getAgeInput(prompt) {
-  displayPrompt(prompt);
-  let result = rlSync.prompt();
-
-  while (ageInvalid(result)) {
-    displayPrompt(ageInvalidPrompt);
-    result = rlSync.prompt();
+  let age;
+  while (true) {
+    displayPrompt(prompt);
+    age = rlSync.question();
+    if (ageValid(age)) break;
+    displayPrompt(AGE_INVALID_PROMPT);
   }
 
-  return result;
-}
-
-function retiringYearMessage(yearsLeft) {
-  let todaysDate = new Date();
-  return `It's ${todaysDate.getFullYear()}. You will retire in ${todaysDate.getFullYear() + yearsLeft}.`;
-}
-
-function yearsOfWorkLeftMessage(yearsLeft) {
-  return `You only have ${yearsLeft} years of work to go!`;
+  return Number(age);
 }
 
 // ========================================================
 
-let age = Number(getAgeInput(agePrompt));
-let retiringAge = Number(getAgeInput(retiringAgePrompt));
+let age = getAgeInput(AGE_PROMPT);
+let retiringAge = getAgeInput(RETIRING_AGE_PROMPT);
 
 let yearsLeftToWork = retiringAge - age;
+let currentYear = new Date().getFullYear();
+let retiringYear = currentYear + yearsLeftToWork;
 
-displayPrompt(retiringYearMessage(yearsLeftToWork));
-displayPrompt(yearsOfWorkLeftMessage(yearsLeftToWork));
+displayPrompt(`It's ${currentYear}. You will retire in ${retiringYear}.`);
+displayPrompt(`You only have ${yearsLeftToWork} years of work to go!`);
