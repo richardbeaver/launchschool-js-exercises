@@ -1,9 +1,9 @@
 /* eslint-disable max-lines-per-function */
-let Scrabble = require('./scrabble.js');
+let Scrabble = require("./scrabble.js");
 
 describe("Scrabble", () => {
   test("empty word scores zero", () => {
-    expect(new Scrabble('').score()).toBe(0);
+    expect(new Scrabble("").score()).toBe(0);
   });
 
   test("whitespace scores zero", () => {
@@ -15,26 +15,26 @@ describe("Scrabble", () => {
   });
 
   test("scores very short word", () => {
-    expect(new Scrabble('a').score()).toBe(1);
+    expect(new Scrabble("a").score()).toBe(1);
   });
 
   test("scores other very short word", () => {
-    expect(new Scrabble('f').score()).toBe(4);
+    expect(new Scrabble("f").score()).toBe(4);
   });
 
   test("simple word scores the number of letters", () => {
-    expect(new Scrabble('street').score()).toBe(6);
+    expect(new Scrabble("street").score()).toBe(6);
   });
 
   test("complicated words score more", () => {
-    expect(new Scrabble('quirky').score()).toBe(22);
+    expect(new Scrabble("quirky").score()).toBe(22);
   });
 
   test("scores are case-insensitive", () => {
-    expect(new Scrabble('OXYPHENBUTAZONE').score()).toBe(41);
+    expect(new Scrabble("OXYPHENBUTAZONE").score()).toBe(41);
   });
 
   test("convenient scoring", () => {
-    expect(Scrabble.score('alacrity')).toBe(13);
+    expect(Scrabble.score("alacrity")).toBe(13);
   });
 });

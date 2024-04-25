@@ -132,8 +132,8 @@ class Clock {
   }
 
   toString() {
-    let hour = String(this.hour).padStart(2, '0');
-    let minute = String(this.minute).padStart(2, '0');
+    let hour = String(this.hour).padStart(2, "0");
+    let minute = String(this.minute).padStart(2, "0");
     return `${hour}:${minute}`;
   }
 
@@ -192,7 +192,7 @@ class Clock {
   }
 
   _getMinutesSinceMidnight() {
-    let totalMinutes = (this.hour * Clock.MINUTES_PER_HOUR) + this.minute;
+    let totalMinutes = this.hour * Clock.MINUTES_PER_HOUR + this.minute;
     return totalMinutes % Clock.MINUTES_PER_DAY;
   }
 

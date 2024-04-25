@@ -92,9 +92,9 @@ class PerfectNumber {
 
     let sum = PerfectNumber.sumOfFactors(number);
 
-    if (sum > number) return 'abundant';
-    if (sum < number) return 'deficient';
-    return 'perfect';
+    if (sum > number) return "abundant";
+    if (sum < number) return "deficient";
+    return "perfect";
   }
 
   static sumOfFactors(number) {

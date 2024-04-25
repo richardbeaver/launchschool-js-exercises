@@ -1,5 +1,5 @@
 /* eslint-disable */
-let Triangle = require('./triangle.js');
+let Triangle = require("./triangle.js");
 
 describe("Triangle", () => {
   test("equilateral triangles have equal sides", () => {
@@ -53,26 +53,38 @@ describe("Triangle", () => {
   });
 
   test("test triangles with no size are illegal", () => {
-    expect(() => { new Triangle(0, 0, 0) }).toThrow();
+    expect(() => {
+      new Triangle(0, 0, 0);
+    }).toThrow();
   });
 
   test("triangles with negative sides are illegal", () => {
-    expect(() => { new Triangle(3, 4, -5) }).toThrow();
+    expect(() => {
+      new Triangle(3, 4, -5);
+    }).toThrow();
   });
 
   test("triangles violating triangle inequality are illegal", () => {
-    expect(() => { new Triangle(1, 1, 3) }).toThrow();
+    expect(() => {
+      new Triangle(1, 1, 3);
+    }).toThrow();
   });
 
   test("triangles violating triangle inequality are illegal 2", () => {
-    expect(() => { new Triangle(7, 3, 2) }).toThrow();
+    expect(() => {
+      new Triangle(7, 3, 2);
+    }).toThrow();
   });
 
   test("triangles violating triangle inequality are illegal 3", () => {
-    expect(() => { new Triangle(10, 1, 3) }).toThrow();
+    expect(() => {
+      new Triangle(10, 1, 3);
+    }).toThrow();
   });
 
   test("triangles violating triangle inequality are illegal 4", () => {
-    expect(() => { new Triangle(1, 1, 2) }).toThrow();
+    expect(() => {
+      new Triangle(1, 1, 2);
+    }).toThrow();
   });
 });

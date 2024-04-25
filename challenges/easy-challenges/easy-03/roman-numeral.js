@@ -136,7 +136,7 @@ class RomanNumeral {
   }
 
   toRoman() {
-    let totalRomanNumeral = '';
+    let totalRomanNumeral = "";
     let numberString = String(this.number);
 
     for (let idx = 0; idx < numberString.length; idx += 1) {
@@ -154,10 +154,10 @@ class RomanNumeral {
 
   // Using objects that contain the Roman Numeral characters we'd need
   getRomanNumeral(digit, powerOfTen) {
-    const onesPlace = { one: 'I', five: 'V', ten: 'X' };
-    const tensPlace = { one: 'X', five: 'L', ten: 'C' };
-    const hundredsPlace = { one: 'C', five: 'D', ten: 'M' };
-    const thousandsPlace = { one: 'M' };
+    const onesPlace = { one: "I", five: "V", ten: "X" };
+    const tensPlace = { one: "X", five: "L", ten: "C" };
+    const hundredsPlace = { one: "C", five: "D", ten: "M" };
+    const thousandsPlace = { one: "M" };
 
     const places = [onesPlace, tensPlace, hundredsPlace, thousandsPlace];
     let numerals = places[powerOfTen];
@@ -166,16 +166,16 @@ class RomanNumeral {
     let ten = numerals.ten;
 
     if (digit >= 1 && digit <= 3) return one.repeat(digit);
-    if (digit === 4)              return one + five;
+    if (digit === 4) return one + five;
     if (digit >= 5 && digit <= 8) return five + one.repeat(digit - 5);
-    if (digit === 9)              return one + ten;
-    return '';
+    if (digit === 9) return one + ten;
+    return "";
   }
 
   // Or, using an array of all Roman Numeral characters and indexes to reference
   // the characters we need
   getRomanNumeralArray(digit, powerOfTen) {
-    const romanChars = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+    const romanChars = ["I", "V", "X", "L", "C", "D", "M"];
 
     let onesIdx = powerOfTen * 2;
     let one = romanChars[onesIdx];
@@ -183,10 +183,10 @@ class RomanNumeral {
     let ten = romanChars[onesIdx + 2];
 
     if (digit >= 1 && digit <= 3) return one.repeat(digit);
-    if (digit === 4)              return one + five;
+    if (digit === 4) return one + five;
     if (digit >= 5 && digit <= 8) return five + one.repeat(digit - 5);
-    if (digit === 9)              return one + ten;
-    return '';
+    if (digit === 9) return one + ten;
+    return "";
   }
 }
 
@@ -198,19 +198,19 @@ class RomanNumeral {
 
 class RomanNumeral_2 {
   static ROMAN_NUMERALS = [
-    [1000, 'M'],
-    [900, 'CM'],
-    [500, 'D'],
-    [400, 'CD'],
-    [100, 'C'],
-    [90, 'XC'],
-    [50, 'L'],
-    [40, 'XL'],
-    [10, 'X'],
-    [9, 'IX'],
-    [5, 'V'],
-    [4, 'IV'],
-    [1, 'I']
+    [1000, "M"],
+    [900, "CM"],
+    [500, "D"],
+    [400, "CD"],
+    [100, "C"],
+    [90, "XC"],
+    [50, "L"],
+    [40, "XL"],
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"],
   ];
 
   constructor(number) {
@@ -218,11 +218,11 @@ class RomanNumeral_2 {
   }
 
   toRoman() {
-    let totalRomanNumeral = '';
+    let totalRomanNumeral = "";
     let numberLeft = this.number;
 
     RomanNumeral.ROMAN_NUMERALS.forEach((valueNumeral) => {
-      let [ value, numeral ] = valueNumeral;
+      let [value, numeral] = valueNumeral;
 
       while (value <= numberLeft) {
         totalRomanNumeral += numeral;

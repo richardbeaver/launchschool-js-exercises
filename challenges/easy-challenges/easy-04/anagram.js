@@ -55,8 +55,8 @@ class Anagram {
     inputWord = inputWord.toLowerCase();
     if (this.matchWord === inputWord) return false;
 
-    let sortedMatchWord = this.matchWord.split('').sort().join('');
-    let sortedInputWord = inputWord.split('').sort().join('');
+    let sortedMatchWord = this.matchWord.split("").sort().join("");
+    let sortedInputWord = inputWord.split("").sort().join("");
 
     return sortedMatchWord === sortedInputWord;
   }

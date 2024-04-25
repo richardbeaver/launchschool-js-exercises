@@ -89,15 +89,15 @@ class Triangle {
   }
 
   kind() {
-    let [ side1, side2, side3] = this.sides;
+    let [side1, side2, side3] = this.sides;
 
     if (side1 === side2 && side2 === side3) {
-      return 'equilateral';
+      return "equilateral";
     }
     if (side1 === side2 || side1 === side3 || side2 === side3) {
-      return 'isosceles';
+      return "isosceles";
     }
-    return 'scalene';
+    return "scalene";
   }
 }
 

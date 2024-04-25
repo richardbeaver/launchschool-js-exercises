@@ -114,14 +114,14 @@ input: letter, padding, middleSpaces
 */
 
 class Diamond {
-  static LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  static LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   // ================
 
   // 1. Using counters for padding spaces and adjusting in each iteration
   //    of while loops
   static makeDiamond(inputLetter) {
-    let result = '';
+    let result = "";
     let letterIdx = Diamond.LETTERS.indexOf(inputLetter);
 
     let padding;
@@ -131,13 +131,13 @@ class Diamond {
 
     while (idx >= 0) {
       padding = letterIdx - idx;
-      middleSpaces = idx === 0 ? 0 : (2 * idx) - 1;
+      middleSpaces = idx === 0 ? 0 : 2 * idx - 1;
       result += this.getOneRow(Diamond.LETTERS[idx], padding, middleSpaces);
 
       if (idx >= letterIdx) increasing = false;
 
       if (increasing) idx += 1;
-      else            idx -= 1;
+      else idx -= 1;
     }
 
     // while (idx < letterIdx) {
@@ -159,14 +159,15 @@ class Diamond {
 
   // 2. Using arrays for padding sequences
   static makeDiamond2(inputLetter) {
-    let result = '';
+    let result = "";
     let letterIdx = Diamond.LETTERS.indexOf(inputLetter);
 
     let paddingSpaces = Array.from(
-      {length: letterIdx + 1}, (_, idx) => letterIdx - idx
+      { length: letterIdx + 1 },
+      (_, idx) => letterIdx - idx,
     );
-    let middleSpaces = Array.from(
-      {length: letterIdx + 1}, (_, idx) => (idx === 0 ? 0 : (2 * idx) - 1)
+    let middleSpaces = Array.from({ length: letterIdx + 1 }, (_, idx) =>
+      idx === 0 ? 0 : 2 * idx - 1,
     );
 
     let idx = 0;
@@ -188,18 +189,18 @@ class Diamond {
   // ================
 
   static getOneRow(letter, padding, middleSpaces) {
-    if (letter === 'A') {
-      return ' '.repeat(padding) + 'A' + ' '.repeat(padding) + '\n';
+    if (letter === "A") {
+      return " ".repeat(padding) + "A" + " ".repeat(padding) + "\n";
     }
 
-    let row = '';
+    let row = "";
 
-    row += ' '.repeat(padding);
+    row += " ".repeat(padding);
     row += letter;
-    row += ' '.repeat(middleSpaces);
+    row += " ".repeat(middleSpaces);
     row += letter;
-    row += ' '.repeat(padding);
-    row += '\n';
+    row += " ".repeat(padding);
+    row += "\n";
 
     return row;
   }

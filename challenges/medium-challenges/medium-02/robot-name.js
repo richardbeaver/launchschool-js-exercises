@@ -88,14 +88,14 @@ class Robot {
   }
 
   twoCapitalLetters() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let idx1 = this.randomNumInclusive(0, letters.length - 1);
     let idx2 = this.randomNumInclusive(0, letters.length - 1);
     return letters[idx1] + letters[idx2];
   }
 
   threeDigits() {
-    let result = '';
+    let result = "";
     for (let count = 1; count <= 3; count += 1) {
       result += this.randomNumInclusive(0, 9);
     }
@@ -105,7 +105,6 @@ class Robot {
   randomNumInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
 }
 
 module.exports = Robot;

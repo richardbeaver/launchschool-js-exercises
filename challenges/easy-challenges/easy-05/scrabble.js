@@ -96,7 +96,7 @@ class Scrabble {
   };
 
   constructor(word) {
-    this.word = word ?? '';
+    this.word = word ?? "";
   }
 
   static score(word) {
@@ -104,7 +104,7 @@ class Scrabble {
   }
 
   score() {
-    return this.word.split('').reduce((totalScore, char) => {
+    return this.word.split("").reduce((totalScore, char) => {
       return totalScore + this.charScore(char);
     }, 0);
   }
@@ -114,7 +114,7 @@ class Scrabble {
     let pointsEntries = Object.entries(Scrabble.POINTS);
 
     for (let idx = 0; idx < pointsEntries.length; idx += 1) {
-      let [ letters, pointValue ] = pointsEntries[idx];
+      let [letters, pointValue] = pointsEntries[idx];
       if (letters.includes(char)) {
         return pointValue;
       }

@@ -1,6 +1,6 @@
 /* eslint-disable */
-let Robot = require('./robot-name.js');
-Math.seedrandom = require('seedrandom');
+let Robot = require("./robot-name.js");
+Math.seedrandom = require("seedrandom");
 
 describe("Robot Name", () => {
   const NAME_REGEXP = /^[A-Z]{2}\d{3}$/;
