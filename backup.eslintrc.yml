@@ -38,13 +38,13 @@ rules:
   id-length:
     - error
     - exceptions:
-      - _
-      - a
-      - b
-      - x
-      - y
-      - z
-      - i
+        - _
+        - a
+        - b
+        - x
+        - y
+        - z
+        - i
       min: 2
       properties: never
   indent:
@@ -86,12 +86,12 @@ rules:
   no-confusing-arrow:
     - error
     - allowParens: true
-  no-console: 'off'
+  no-console: "off"
   no-const-assign: error
   no-constant-condition:
     - error
     - checkLoops: false
-  no-debugger: 'off'
+  no-debugger: "off"
   no-dupe-class-members: error
   no-duplicate-imports: error
   no-eq-null: error
@@ -121,7 +121,7 @@ rules:
   no-octal-escape: error
   no-process-env: error
   no-process-exit: error
-  no-prototype-builtins: 'off'
+  no-prototype-builtins: "off"
   no-restricted-syntax:
     - error
     - message: Do not use `with` statement.
@@ -182,4 +182,3 @@ rules:
     - words: true
       nonwords: false
   vars-on-top: error
-  
