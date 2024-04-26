@@ -52,6 +52,9 @@ constructor
 
 */
 
+/* eslint-disable-next-line */
+const utils = require("../../../utils.js");
+
 class Anagram {
   /**
    * @param {string} matchWord
@@ -113,8 +116,11 @@ class Anagram {
     const wordCounts = Array(26).fill(0);
 
     for (const letter of word) {
-      const codepoint = /** @type {number} */ (letter.codePointAt(0));
-      const lowerACodepoint = /** @type {number} */ ("a".codePointAt(0));
+      const codepoint = utils.assertDefined(
+        letter.codePointAt(0),
+        "string `letter` is a single character; index 0 is valid"
+      );
+      const lowerACodepoint = utils.assertDefined("a".codePointAt(0));
 
       wordCounts[codepoint - lowerACodepoint] += 1;
     }

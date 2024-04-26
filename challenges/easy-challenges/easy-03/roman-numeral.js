@@ -128,6 +128,9 @@ constructor (number)
 // ==================================================================
 // ==================================================================
 
+/* eslint-disable-next-line */
+const utils = require("../../../utils.js");
+
 // 1. Using digits and their power of ten:
 
 class RomanNumeral {
@@ -193,7 +196,10 @@ class RomanNumeral {
      */
     const places = [onesPlace, tensPlace, hundredsPlace, thousandsPlace];
 
-    const numerals = /** @type {PlaceValues} */ (places[powerOfTen]);
+    const numerals = utils.assertDefined(
+      places[powerOfTen],
+      "`powerOfTen` can only be in [0, 3]; checked at start of function"
+    );
 
     const { one, five, ten } = numerals;
 
@@ -228,8 +234,10 @@ class RomanNumeral {
     const romanChars = ["I", "V", "X", "L", "C", "D", "M"];
 
     const onesIdx = powerOfTen * 2;
-    const one = /** @type {string} */ (romanChars[onesIdx]);
-
+    const one = utils.assertDefined(
+      romanChars[onesIdx],
+      "`onesIdx` can only be in [0, 6]; `powerOfTen` checked at start of function"
+    );
     const five = romanChars[onesIdx + 1] ?? "M".repeat(5);
     const ten = romanChars[onesIdx + 2] ?? "M".repeat(10);
 
