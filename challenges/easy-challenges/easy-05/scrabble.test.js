@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-const Scrabble = require("./scrabble.js");
+import Scrabble from "./scrabble.js";
 
 describe("Scrabble", () => {
   test("empty word scores zero", () => {

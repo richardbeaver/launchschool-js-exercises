@@ -23,5 +23,3 @@ export function assertDefined(value, expectMessage, valueName) {
   }
   return /** @type {*} */ (value);
 }
-
-module.exports = { assertDefined };

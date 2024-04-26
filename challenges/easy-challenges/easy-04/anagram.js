@@ -52,8 +52,7 @@ constructor
 
 */
 
-/* eslint-disable-next-line */
-const utils = require("../../../utils.js");
+import { assertDefined } from "../../../utils.js";
 
 class Anagram {
   /**
@@ -116,11 +115,11 @@ class Anagram {
     const wordCounts = Array(26).fill(0);
 
     for (const letter of word) {
-      const codepoint = utils.assertDefined(
+      const codepoint = assertDefined(
         letter.codePointAt(0),
         "string `letter` is a single character; index 0 is valid"
       );
-      const lowerACodepoint = utils.assertDefined("a".codePointAt(0));
+      const lowerACodepoint = assertDefined("a".codePointAt(0));
 
       wordCounts[codepoint - lowerACodepoint] += 1;
     }
@@ -129,4 +128,4 @@ class Anagram {
   }
 }
 
-module.exports = Anagram;
+export default Anagram;

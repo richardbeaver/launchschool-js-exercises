@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-let PerfectNumber = require("./perfect-number.js");
+import PerfectNumber from "./perfect-number.js";
 
 describe("PerfectNumber", () => {
   test("negative raises error", () => {

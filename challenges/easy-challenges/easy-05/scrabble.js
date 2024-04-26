@@ -137,4 +137,4 @@ class Scrabble {
   }
 }
 
-module.exports = Scrabble;
+export default Scrabble;

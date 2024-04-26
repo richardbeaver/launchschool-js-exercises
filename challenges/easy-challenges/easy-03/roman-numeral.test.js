@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-let RomanNumeral = require("./roman-numeral.js");
+import RomanNumeral from "./roman-numeral.js";
 
 describe("RomanNumeral", () => {
   test("1", () => {

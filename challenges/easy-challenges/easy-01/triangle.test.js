@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-let Triangle = require("./triangle.js");
+import Triangle from "./triangle.js";
 
 describe("Triangle", () => {
   test("equilateral triangles have equal sides", () => {

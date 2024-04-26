@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-let DNA = require("./dna.js");
+import DNA from "./dna";
 
 describe("DNA", () => {
   test("no difference between empty strands", () => {

@@ -104,4 +104,4 @@ class DNA {
   }
 }
 
-module.exports = DNA;
+export default DNA;

@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-let Anagram = require("./anagram.js");
+import Anagram from "./anagram.js";
 
 describe("Anagram", () => {
   test("No matches returns empty array", () => {

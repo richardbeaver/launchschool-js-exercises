@@ -118,4 +118,4 @@ class Triangle {
   }
 }
 
-module.exports = Triangle;
+export default Triangle;

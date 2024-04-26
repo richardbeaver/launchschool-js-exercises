@@ -119,4 +119,4 @@ class PerfectNumber {
   }
 }
 
-module.exports = PerfectNumber;
+export default PerfectNumber;
