@@ -13,6 +13,16 @@
  * @param {string} [expectMessage]
  * @param {string} [valueName]
  * @returns {T extends undefined ? never : T}
+ *
+ * @example
+ * const arr = [1, 2, 3];
+ * const idx = 99;
+ * // throws Error:
+ * const var = assertDefined(
+ *   arr[idx],
+ *   `Index of ${idx.toString()} outside range for array: ${arr.toString()}.`,
+ *   "idx"
+ * );
  */
 export function assertDefined(value, expectMessage, valueName) {
   if (value === undefined) {
