@@ -113,11 +113,8 @@ class Anagram {
     const wordCounts = Array(26).fill(0);
 
     for (const letter of word) {
-      const codepoint = letter.codePointAt(0);
-      if (codepoint == undefined) throw new Error("Unreachable");
-
-      const lowerACodepoint = "a".codePointAt(0);
-      if (lowerACodepoint == undefined) throw new Error("Unreachable");
+      const codepoint = /** @type {number} */ (letter.codePointAt(0));
+      const lowerACodepoint = /** @type {number} */ ("a".codePointAt(0));
 
       wordCounts[codepoint - lowerACodepoint] += 1;
     }

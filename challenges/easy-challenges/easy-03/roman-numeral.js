@@ -193,10 +193,7 @@ class RomanNumeral {
      */
     const places = [onesPlace, tensPlace, hundredsPlace, thousandsPlace];
 
-    const numerals = places[powerOfTen];
-    if (numerals == undefined) {
-      throw new Error("Unreachable - powerOfTen checked at start of function");
-    }
+    const numerals = /** @type {PlaceValues} */ (places[powerOfTen]);
 
     const { one, five, ten } = numerals;
 
@@ -231,10 +228,7 @@ class RomanNumeral {
     const romanChars = ["I", "V", "X", "L", "C", "D", "M"];
 
     const onesIdx = powerOfTen * 2;
-    const one = romanChars[onesIdx];
-    if (one == undefined) {
-      throw new Error("Unreachable - powerOfTen checked at start of function");
-    }
+    const one = /** @type {string} */ (romanChars[onesIdx]);
 
     const five = romanChars[onesIdx + 1] ?? "M".repeat(5);
     const ten = romanChars[onesIdx + 2] ?? "M".repeat(10);
