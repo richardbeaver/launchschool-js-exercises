@@ -95,26 +95,39 @@ class Scrabble {
     QZ: 10,
   };
 
+  /**
+   * @param {string | null} word
+   */
   constructor(word) {
     this.word = word ?? "";
   }
 
+  /**
+   * @param {string} word
+   * @returns {number}
+   */
   static score(word) {
     return new Scrabble(word).score();
   }
 
+  /**
+   * @returns {number}
+   */
   score() {
-    return this.word.split("").reduce((totalScore, char) => {
-      return totalScore + this.charScore(char);
-    }, 0);
+    return [...this.word].reduce(
+      (totalScore, char) => totalScore + this.charScore(char),
+      0
+    );
   }
 
+  /**
+   * @param {string} char
+   * @returns {number}
+   */
   charScore(char) {
     char = char.toUpperCase();
-    let pointsEntries = Object.entries(Scrabble.POINTS);
 
-    for (let idx = 0; idx < pointsEntries.length; idx += 1) {
-      let [letters, pointValue] = pointsEntries[idx];
+    for (const [letters, pointValue] of Object.entries(Scrabble.POINTS)) {
       if (letters.includes(char)) {
         return pointValue;
       }

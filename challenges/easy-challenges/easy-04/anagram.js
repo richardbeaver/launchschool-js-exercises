@@ -33,6 +33,7 @@ constructor
 `match`
 - filter each string in input array by whether it is anagram of `matchWord`
 
+1.
 `isAnagram` (string)
 - lowercase input string
 - if `matchWord` is equal to input string
@@ -40,25 +41,88 @@ constructor
 - sort `matchWord` and input string
 - return whether sorted words are equal to each other
 
+2.
+`isAnagram` (string)
+- Get counts of the letters in each word and compare
+    - O(n) instead of O(n log n) by sorting
+        - Where `n` is the length of the longer of the two words being compared
+- The only difference from the first solution in the implementation is using
+  the self-defined `getLetterCounts` function (O(n)) instead of calling `sort`
+  on an array of letters (O(n log n))
+
 */
 
 class Anagram {
+  /**
+   * @param {string} matchWord
+   */
   constructor(matchWord) {
     this.matchWord = matchWord.toLowerCase();
   }
 
+  /**
+   * @param {string[]} wordsList
+   * @returns {string[]}
+   */
   match(wordsList) {
     return wordsList.filter((word) => this.isAnagram(word));
   }
 
+  //
+
+  // 1. Sorting letters of each word and comparing
+
+  /**
+   * @param {string} inputWord
+   * @returns {boolean}
+   */
+  isAnagramSorting(inputWord) {
+    inputWord = inputWord.toLowerCase();
+    if (this.matchWord === inputWord) return false;
+
+    const sortedMatchWord = [...this.matchWord].sort().join("");
+    const sortedInputWord = [...inputWord].sort().join("");
+
+    return sortedMatchWord === sortedInputWord;
+  }
+
+  // 2. Counting occurences of each letter and comparing counts
+
+  /**
+   * @param {string} inputWord
+   * @returns {boolean}
+   */
   isAnagram(inputWord) {
     inputWord = inputWord.toLowerCase();
     if (this.matchWord === inputWord) return false;
 
-    let sortedMatchWord = this.matchWord.split("").sort().join("");
-    let sortedInputWord = inputWord.split("").sort().join("");
+    const matchWordCounts = this.getLetterCounts(this.matchWord);
+    const inputWordCounts = this.getLetterCounts(inputWord);
 
-    return sortedMatchWord === sortedInputWord;
+    return matchWordCounts.join("") == inputWordCounts.join("");
+  }
+
+  /**
+   * @param {string} word
+   * @returns {number[]}
+   */
+  getLetterCounts(word) {
+    /**
+     * @type {number[]}
+     */
+    const wordCounts = Array(26).fill(0);
+
+    for (const letter of word) {
+      const codepoint = letter.codePointAt(0);
+      if (codepoint == undefined) throw new Error("Unreachable");
+
+      const lowerACodepoint = "a".codePointAt(0);
+      if (lowerACodepoint == undefined) throw new Error("Unreachable");
+
+      wordCounts[codepoint - lowerACodepoint] += 1;
+    }
+
+    return wordCounts;
   }
 }
 

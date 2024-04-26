@@ -71,7 +71,18 @@ Algorithm
 */
 
 class Triangle {
+  /**
+   * @param {number} side1
+   * @param {number} side2
+   * @param {number} side3
+   */
   constructor(side1, side2, side3) {
+    /**
+     * TS tuple type to enforce a fixed size array of 3 numbers. When accessing
+     * elements later, either get a TS error or a number value instead of
+     * `number | undefined`.
+     * @type {[number, number, number]}
+     */
     this.sides = [side1, side2, side3];
 
     if (!this.isValid()) {
@@ -79,17 +90,23 @@ class Triangle {
     }
   }
 
+  /**
+   * @returns {boolean}
+   */
   isValid() {
     if (this.sides.some((side) => side <= 0)) {
       return false;
     }
-    let longest = Math.max(...this.sides);
-    let shortestTwo = this.sides.reduce((sum, num) => sum + num, 0) - longest;
+    const longest = Math.max(...this.sides);
+    const shortestTwo = this.sides.reduce((sum, num) => sum + num, 0) - longest;
     return shortestTwo > longest;
   }
 
+  /**
+   * @returns {"equilateral" | "isosceles" | "scalene"}
+   */
   kind() {
-    let [side1, side2, side3] = this.sides;
+    const [side1, side2, side3] = this.sides;
 
     if (side1 === side2 && side2 === side3) {
       return "equilateral";

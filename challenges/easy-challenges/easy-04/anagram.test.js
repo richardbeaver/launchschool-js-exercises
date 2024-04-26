@@ -1,32 +1,32 @@
-/* eslint-disable */
+/* eslint-disable-next-line */
 let Anagram = require("./anagram.js");
 
 describe("Anagram", () => {
   test("No matches returns empty array", () => {
-    let detector = new Anagram("diaper");
+    const detector = new Anagram("diaper");
     expect(detector.match(["hello", "world", "zombies", "pants"])).toEqual([]);
   });
 
   test("Detect simple anagram", () => {
-    let detector = new Anagram("ant");
-    let anagrams = detector.match(["tan", "stand", "at"]);
+    const detector = new Anagram("ant");
+    const anagrams = detector.match(["tan", "stand", "at"]);
     expect(anagrams).toEqual(["tan"]);
   });
 
   test("Detect multiple anagrams", () => {
-    let detector = new Anagram("master");
-    let anagrams = detector.match(["stream", "pigeon", "maters"]);
+    const detector = new Anagram("master");
+    const anagrams = detector.match(["stream", "pigeon", "maters"]);
     expect(anagrams.sort()).toEqual(["maters", "stream"]);
   });
 
   test("Do not confuse different duplicates", () => {
-    let detector = new Anagram("galea");
+    const detector = new Anagram("galea");
     expect(detector.match(["eagle"])).toEqual([]);
   });
 
   test("Identical word is not anagram", () => {
-    let detector = new Anagram("corn");
-    let anagrams = detector.match([
+    const detector = new Anagram("corn");
+    const anagrams = detector.match([
       "corn",
       "dark",
       "Corn",
@@ -39,24 +39,24 @@ describe("Anagram", () => {
   });
 
   test("Eliminate anagrams with same checksum", () => {
-    let detector = new Anagram("mass");
+    const detector = new Anagram("mass");
     expect(detector.match(["last"])).toEqual([]);
   });
 
   test("Eliminate anagram subsets", () => {
-    let detector = new Anagram("good");
+    const detector = new Anagram("good");
     expect(detector.match(["dog", "goody"])).toEqual([]);
   });
 
   test("Detect anagram", () => {
-    let detector = new Anagram("listen");
-    let anagrams = detector.match(["enlists", "google", "inlets", "banana"]);
+    const detector = new Anagram("listen");
+    const anagrams = detector.match(["enlists", "google", "inlets", "banana"]);
     expect(anagrams).toEqual(["inlets"]);
   });
 
   test("Multiple anagrams", () => {
-    let detector = new Anagram("allergy");
-    let anagrams = detector.match([
+    const detector = new Anagram("allergy");
+    const anagrams = detector.match([
       "gallery",
       "ballerina",
       "regally",
@@ -68,8 +68,8 @@ describe("Anagram", () => {
   });
 
   test("Anagrams are case-insensitive", () => {
-    let detector = new Anagram("Orchestra");
-    let anagrams = detector.match(["cashregister", "Carthorse", "radishes"]);
+    const detector = new Anagram("Orchestra");
+    const anagrams = detector.match(["cashregister", "Carthorse", "radishes"]);
     expect(anagrams).toEqual(["Carthorse"]);
   });
 });

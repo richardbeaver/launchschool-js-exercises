@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable-next-line */
 let Triangle = require("./triangle.js");
 
 describe("Triangle", () => {

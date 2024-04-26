@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable-next-line */
 let PerfectNumber = require("./perfect-number.js");
 
 describe("PerfectNumber", () => {

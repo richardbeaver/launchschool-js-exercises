@@ -85,22 +85,30 @@ static sumOfDivisors
 */
 
 class PerfectNumber {
+  /**
+   * @param {number} number
+   * @returns {"abundant" | "deficient" | "perfect"}
+   */
   static classify(number) {
     if (number < 1) {
       throw new Error("Number must be greater than or equal to 1.");
     }
 
-    let sum = PerfectNumber.sumOfFactors(number);
+    const sum = PerfectNumber.sumOfFactors(number);
 
     if (sum > number) return "abundant";
     if (sum < number) return "deficient";
     return "perfect";
   }
 
+  /**
+   * @param {number} number
+   * @returns {number}
+   */
   static sumOfFactors(number) {
     let sum = 0;
 
-    let halfNumber = Math.floor(number / 2);
+    const halfNumber = Math.floor(number / 2);
     for (let value = 1; value <= halfNumber; value += 1) {
       if (number % value === 0) {
         sum += value;

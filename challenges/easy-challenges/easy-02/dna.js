@@ -80,12 +80,19 @@ constructor
 */
 
 class DNA {
+  /**
+   * @param {string} strand
+   */
   constructor(strand) {
     this.strand = strand;
   }
 
+  /**
+   * @param {string} otherStrand
+   * @returns {number}
+   */
   hammingDistance(otherStrand) {
-    let minLength = Math.min(this.strand.length, otherStrand.length);
+    const minLength = Math.min(this.strand.length, otherStrand.length);
     let differences = 0;
 
     for (let idx = 0; idx < minLength; idx += 1) {

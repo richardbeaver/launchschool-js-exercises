@@ -131,39 +131,74 @@ constructor (number)
 // 1. Using digits and their power of ten:
 
 class RomanNumeral {
+  /**
+   * @param {number} number
+   */
   constructor(number) {
     this.number = number;
   }
 
+  /**
+   * @returns {string}
+   */
   toRoman() {
     let totalRomanNumeral = "";
-    let numberString = String(this.number);
+    const numberString = String(this.number);
 
     for (let idx = 0; idx < numberString.length; idx += 1) {
-      let powerOfTen = numberString.length - idx - 1;
+      const powerOfTen = numberString.length - idx - 1;
 
-      let digit = Number(numberString[idx]);
+      const digit = Number(numberString[idx]);
       if (digit === 0) continue;
 
-      let currentNumeral = this.getRomanNumeral(digit, powerOfTen);
+      const currentNumeral = this.getRomanNumeral(digit, powerOfTen);
       totalRomanNumeral += currentNumeral;
     }
 
     return totalRomanNumeral;
   }
 
-  // Using objects that contain the Roman Numeral characters we'd need
+  //
+
+  // Using objects that contain the Roman Numeral characters we'd need:
+
+  /**
+   * @param {number} digit
+   * @param {number} powerOfTen
+   * @returns {string}
+   */
   getRomanNumeral(digit, powerOfTen) {
+    if (powerOfTen < 0) {
+      throw new Error("Power of ten must be non-negative");
+    }
+    if (powerOfTen > 3) {
+      throw new Error("Does not suppport numbers greater than 4 digits");
+    }
+
+    /**
+     * @typedef {{one: string, five: string, ten: string}} PlaceValues
+     */
+
     const onesPlace = { one: "I", five: "V", ten: "X" };
     const tensPlace = { one: "X", five: "L", ten: "C" };
     const hundredsPlace = { one: "C", five: "D", ten: "M" };
-    const thousandsPlace = { one: "M" };
+    const thousandsPlace = {
+      one: "M",
+      five: "M".repeat(5),
+      ten: "M".repeat(10),
+    };
 
+    /**
+     * @type {[PlaceValues, PlaceValues, PlaceValues, PlaceValues]}
+     */
     const places = [onesPlace, tensPlace, hundredsPlace, thousandsPlace];
-    let numerals = places[powerOfTen];
-    let one = numerals.one;
-    let five = numerals.five;
-    let ten = numerals.ten;
+
+    const numerals = places[powerOfTen];
+    if (numerals == undefined) {
+      throw new Error("Unreachable - powerOfTen checked at start of function");
+    }
+
+    const { one, five, ten } = numerals;
 
     if (digit >= 1 && digit <= 3) return one.repeat(digit);
     if (digit === 4) return one + five;
@@ -172,15 +207,37 @@ class RomanNumeral {
     return "";
   }
 
+  //
+
   // Or, using an array of all Roman Numeral characters and indexes to reference
-  // the characters we need
-  getRomanNumeralArray(digit, powerOfTen) {
+  // the characters we need:
+
+  /**
+   * @param {number} digit
+   * @param {number} powerOfTen
+   * @returns {string}
+   */
+  getRomanNumeral_2(digit, powerOfTen) {
+    if (powerOfTen < 0) {
+      throw new Error("Power of ten must be non-negative");
+    }
+    if (powerOfTen > 3) {
+      throw new Error("Does not suppport numbers greater than 4 digits");
+    }
+
+    /**
+     * @type {[string, string, string, string, string, string, string]}
+     */
     const romanChars = ["I", "V", "X", "L", "C", "D", "M"];
 
-    let onesIdx = powerOfTen * 2;
-    let one = romanChars[onesIdx];
-    let five = romanChars[onesIdx + 1];
-    let ten = romanChars[onesIdx + 2];
+    const onesIdx = powerOfTen * 2;
+    const one = romanChars[onesIdx];
+    if (one == undefined) {
+      throw new Error("Unreachable - powerOfTen checked at start of function");
+    }
+
+    const five = romanChars[onesIdx + 1] ?? "M".repeat(5);
+    const ten = romanChars[onesIdx + 2] ?? "M".repeat(10);
 
     if (digit >= 1 && digit <= 3) return one.repeat(digit);
     if (digit === 4) return one + five;
@@ -196,7 +253,10 @@ class RomanNumeral {
 // 2. Adding largest roman numeral whose value is smaller than the number
 //    value left to convert:
 
-class RomanNumeral_2 {
+class RomanNumeralArray {
+  /**
+   * @type {readonly [number, string][]}
+   */
   static ROMAN_NUMERALS = [
     [1000, "M"],
     [900, "CM"],
@@ -213,6 +273,9 @@ class RomanNumeral_2 {
     [1, "I"],
   ];
 
+  /**
+   * @param {number} number
+   */
   constructor(number) {
     this.number = number;
   }
@@ -221,14 +284,12 @@ class RomanNumeral_2 {
     let totalRomanNumeral = "";
     let numberLeft = this.number;
 
-    RomanNumeral.ROMAN_NUMERALS.forEach((valueNumeral) => {
-      let [value, numeral] = valueNumeral;
-
+    for (const [value, numeral] of RomanNumeralArray.ROMAN_NUMERALS) {
       while (value <= numberLeft) {
         totalRomanNumeral += numeral;
         numberLeft -= value;
       }
-    });
+    }
 
     return totalRomanNumeral;
   }

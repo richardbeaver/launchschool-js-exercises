@@ -1,5 +1,5 @@
-/* eslint-disable max-lines-per-function */
-let Scrabble = require("./scrabble.js");
+/* eslint-disable-next-line */
+const Scrabble = require("./scrabble.js");
 
 describe("Scrabble", () => {
   test("empty word scores zero", () => {
