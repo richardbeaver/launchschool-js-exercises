@@ -1,4 +1,4 @@
-import PerfectNumber from "./perfect-number.js";
+import * as PerfectNumber from "./perfect-number.js";
 
 describe("PerfectNumber", () => {
   test("negative raises error", () => {

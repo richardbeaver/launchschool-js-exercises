@@ -51,6 +51,8 @@ sum < than number => deficient
 
 - test cases show that we need a `PerfectNumber` class and a static
   `classify` method
+  - The class would have no non-static members, so we can use an exported
+    `classify` function instead
 - throw new exception if input is not a natural number
 
 Data structure
@@ -84,39 +86,35 @@ static sumOfDivisors
 
 */
 
-class PerfectNumber {
-  /**
-   * @param {number} number
-   * @returns {"abundant" | "deficient" | "perfect"}
-   */
-  static classify(number) {
-    if (number < 1) {
-      throw new Error("Number must be greater than or equal to 1.");
-    }
-
-    const sum = PerfectNumber.sumOfFactors(number);
-
-    if (sum > number) return "abundant";
-    if (sum < number) return "deficient";
-    return "perfect";
+/**
+ * @param {number} number
+ * @returns {"abundant" | "deficient" | "perfect"}
+ */
+export function classify(number) {
+  if (number < 1) {
+    throw new Error("Number must be greater than or equal to 1.");
   }
 
-  /**
-   * @param {number} number
-   * @returns {number}
-   */
-  static sumOfFactors(number) {
-    let sum = 0;
+  const sum = sumOfFactors(number);
 
-    const halfNumber = Math.floor(number / 2);
-    for (let value = 1; value <= halfNumber; value += 1) {
-      if (number % value === 0) {
-        sum += value;
-      }
-    }
-
-    return sum;
-  }
+  if (sum > number) return "abundant";
+  if (sum < number) return "deficient";
+  return "perfect";
 }
 
-export default PerfectNumber;
+/**
+ * @param {number} number
+ * @returns {number}
+ */
+function sumOfFactors(number) {
+  let sum = 0;
+
+  const halfNumber = Math.floor(number / 2);
+  for (let value = 1; value <= halfNumber; value += 1) {
+    if (number % value === 0) {
+      sum += value;
+    }
+  }
+
+  return sum;
+}
