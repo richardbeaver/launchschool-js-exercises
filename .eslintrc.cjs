@@ -13,6 +13,7 @@ const config = {
   rules: {
     "no-var": "error",
     "prefer-const": ["error", { destructuring: "all" }],
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
