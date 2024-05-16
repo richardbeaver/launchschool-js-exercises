@@ -122,34 +122,54 @@ class Clock {
   static HOURS_PER_DAY = 24;
   static MINUTES_PER_DAY = Clock.MINUTES_PER_HOUR * Clock.HOURS_PER_DAY;
 
+  /**
+   * @param {number} hour
+   * @param {number} minute
+   */
   constructor(hour, minute) {
     this.hour = hour;
     this.minute = minute;
   }
 
+  /**
+   * @param {number} hour
+   * @param {number} minute
+   * @returns {Clock}
+   */
   static at(hour, minute = 0) {
     return new Clock(hour, minute);
   }
 
+  /**
+   * @returns {string}
+   */
   toString() {
-    let hour = String(this.hour).padStart(2, "0");
-    let minute = String(this.minute).padStart(2, "0");
+    const hour = String(this.hour).padStart(2, "0");
+    const minute = String(this.minute).padStart(2, "0");
     return `${hour}:${minute}`;
   }
 
+  /**
+   * @param {Clock} otherClock
+   * @returns {boolean}
+   */
   isEqual(otherClock) {
     return this.hour === otherClock.hour && this.minute === otherClock.minute;
   }
 
   // 1. Working with hour and minute values themselves
 
+  /**
+   * @param {number} minutes
+   * @returns {Clock}
+   */
   add(minutes) {
     minutes %= Clock.MINUTES_PER_DAY;
 
     let currentMinutes = this.minute;
     let currentHours = this.hour;
 
-    let minutesToAdd = minutes % Clock.MINUTES_PER_HOUR;
+    const minutesToAdd = minutes % Clock.MINUTES_PER_HOUR;
     currentMinutes += minutesToAdd;
 
     if (currentMinutes > Clock.MINUTES_PER_HOUR) {
@@ -157,7 +177,7 @@ class Clock {
       currentHours += 1;
     }
 
-    let hoursToAdd = Math.floor(minutes / Clock.MINUTES_PER_HOUR);
+    const hoursToAdd = Math.floor(minutes / Clock.MINUTES_PER_HOUR);
     currentHours += hoursToAdd;
 
     currentHours %= Clock.HOURS_PER_DAY;
@@ -165,9 +185,13 @@ class Clock {
     return new Clock(currentHours, currentMinutes);
   }
 
+  /**
+   * @param {number} minutes
+   * @returns {Clock}
+   */
   subtract(minutes) {
     minutes %= Clock.MINUTES_PER_DAY;
-    let minutesToAdd = Clock.MINUTES_PER_DAY - minutes;
+    const minutesToAdd = Clock.MINUTES_PER_DAY - minutes;
 
     return this.add(minutesToAdd);
   }
@@ -175,6 +199,10 @@ class Clock {
   // 2. Using helper methods to convert between hour and minute properties and
   //    the minutes after midnight that they represent
 
+  /**
+   * @param {number} minutes
+   * @returns {Clock}
+   */
   add2(minutes) {
     let newMinutes = this._getMinutesSinceMidnight() + minutes;
     while (newMinutes > Clock.MINUTES_PER_DAY) {
@@ -183,6 +211,10 @@ class Clock {
     return this._getTime(newMinutes);
   }
 
+  /**
+   * @param {number} minutes
+   * @returns {Clock}
+   */
   subtract2(minutes) {
     let newMinutes = this._getMinutesSinceMidnight() - minutes;
     while (newMinutes < 0) {
@@ -191,17 +223,24 @@ class Clock {
     return this._getTime(newMinutes);
   }
 
+  /**
+   * @returns {number}
+   */
   _getMinutesSinceMidnight() {
-    let totalMinutes = this.hour * Clock.MINUTES_PER_HOUR + this.minute;
+    const totalMinutes = this.hour * Clock.MINUTES_PER_HOUR + this.minute;
     return totalMinutes % Clock.MINUTES_PER_DAY;
   }
 
+  /**
+   * @param {number} minutesSinceMidnight
+   * @returns {Clock}
+   */
   _getTime(minutesSinceMidnight) {
     minutesSinceMidnight %= Clock.MINUTES_PER_DAY;
-    let hour = Math.floor(minutesSinceMidnight / Clock.MINUTES_PER_HOUR);
-    let minute = minutesSinceMidnight % Clock.MINUTES_PER_HOUR;
+    const hour = Math.floor(minutesSinceMidnight / Clock.MINUTES_PER_HOUR);
+    const minute = minutesSinceMidnight % Clock.MINUTES_PER_HOUR;
     return new Clock(hour, minute);
   }
 }
 
-module.exports = Clock;
+export default Clock;

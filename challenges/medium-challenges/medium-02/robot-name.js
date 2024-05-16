@@ -55,56 +55,82 @@ constructor
 
 */
 
+import { assertDefined } from "../../../utils";
+
 class Robot {
-  static usedNames = {};
+  /**
+   * @type {Set<string>}
+   */
+  static usedNames = new Set();
 
   constructor() {
+    this.robotName = "";
     this.setNewName();
   }
 
+  /**
+   * @returns {string}
+   */
   name() {
     return this.robotName;
   }
 
+  /**
+   *
+   */
   reset() {
-    delete Robot.usedNames[this.name()];
+    Robot.usedNames.delete(this.name());
     this.setNewName();
   }
 
+  /**
+   * @returns {void}
+   */
   setNewName() {
-    let name = this.generateName();
-    Robot.usedNames[name] = true;
+    const name = this.generateName();
+    Robot.usedNames.add(name);
     this.robotName = name;
   }
 
   generateName() {
     let name;
     do {
-      let letters = this.twoCapitalLetters();
-      let digits = this.threeDigits();
+      const letters = this.twoCapitalLetters();
+      const digits = this.threeDigits();
       name = letters + digits;
-    } while (Robot.usedNames[name]);
+    } while (Robot.usedNames.has(name));
     return name;
   }
 
+  /**
+   * @returns {string}
+   */
   twoCapitalLetters() {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let idx1 = this.randomNumInclusive(0, letters.length - 1);
-    let idx2 = this.randomNumInclusive(0, letters.length - 1);
-    return letters[idx1] + letters[idx2];
+    const idx1 = this.randomNumInclusive(0, letters.length - 1);
+    const idx2 = this.randomNumInclusive(0, letters.length - 1);
+    return assertDefined(letters[idx1]) + assertDefined(letters[idx2]);
   }
 
+  /**
+   * @returns {string}
+   */
   threeDigits() {
     let result = "";
     for (let count = 1; count <= 3; count += 1) {
-      result += this.randomNumInclusive(0, 9);
+      result += this.randomNumInclusive(0, 9).toString();
     }
     return result;
   }
 
+  /**
+   * @param {number} min
+   * @param {number} max
+   * @returns {number}
+   */
   randomNumInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 
-module.exports = Robot;
+export default Robot;

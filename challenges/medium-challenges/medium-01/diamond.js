@@ -113,99 +113,116 @@ input: letter, padding, middleSpaces
 
 */
 
-class Diamond {
-  static LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+import { assertDefined } from "../../../utils.js";
 
-  // ================
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  // 1. Using counters for padding spaces and adjusting in each iteration
-  //    of while loops
-  static makeDiamond(inputLetter) {
-    let result = "";
-    let letterIdx = Diamond.LETTERS.indexOf(inputLetter);
+// ================
 
-    let padding;
-    let middleSpaces;
-    let idx = 0;
-    let increasing = true;
+// 1. Using counters for padding spaces and adjusting in each iteration
+//    of while loops
 
-    while (idx >= 0) {
-      padding = letterIdx - idx;
-      middleSpaces = idx === 0 ? 0 : 2 * idx - 1;
-      result += this.getOneRow(Diamond.LETTERS[idx], padding, middleSpaces);
+/**
+ * @param {string} inputLetter
+ * @returns {string}
+ */
+export function makeDiamond(inputLetter) {
+  let result = "";
+  const letterIdx = LETTERS.indexOf(inputLetter);
 
-      if (idx >= letterIdx) increasing = false;
+  let padding;
+  let middleSpaces;
+  let idx = 0;
+  let increasing = true;
 
-      if (increasing) idx += 1;
-      else idx -= 1;
-    }
+  while (idx >= 0) {
+    padding = letterIdx - idx;
+    middleSpaces = idx === 0 ? 0 : 2 * idx - 1;
+    const letter = assertDefined(LETTERS[idx]);
+    result += getOneRow(letter, padding, middleSpaces);
 
-    // while (idx < letterIdx) {
-    //   padding = letterIdx - idx;
-    //   middleSpaces = idx === 0 ? 0 : (2 * idx) - 1;
-    //   result += this.getOneRow(Diamond.LETTERS[idx], padding, middleSpaces);
-    //   idx += 1;
-    // }
+    if (idx >= letterIdx) increasing = false;
 
-    // while (idx >= 0) {
-    //   padding = letterIdx - idx;
-    //   middleSpaces = idx === 0 ? 0 : (2 * idx) - 1;
-    //   result += this.getOneRow(Diamond.LETTERS[idx], padding, middleSpaces);
-    //   idx -= 1;
-    // }
-
-    return result;
+    if (increasing) idx += 1;
+    else idx -= 1;
   }
 
-  // 2. Using arrays for padding sequences
-  static makeDiamond2(inputLetter) {
-    let result = "";
-    let letterIdx = Diamond.LETTERS.indexOf(inputLetter);
+  // while (idx < letterIdx) {
+  //   padding = letterIdx - idx;
+  //   middleSpaces = idx === 0 ? 0 : (2 * idx) - 1;
+  //   result += this.getOneRow(LETTERS[idx], padding, middleSpaces);
+  //   idx += 1;
+  // }
 
-    let paddingSpaces = Array.from(
-      { length: letterIdx + 1 },
-      (_, idx) => letterIdx - idx,
-    );
-    let middleSpaces = Array.from({ length: letterIdx + 1 }, (_, idx) =>
-      idx === 0 ? 0 : 2 * idx - 1,
-    );
+  // while (idx >= 0) {
+  //   padding = letterIdx - idx;
+  //   middleSpaces = idx === 0 ? 0 : (2 * idx) - 1;
+  //   result += this.getOneRow(LETTERS[idx], padding, middleSpaces);
+  //   idx -= 1;
+  // }
 
-    let idx = 0;
-    while (idx < letterIdx) {
-      let letter = Diamond.LETTERS[idx];
-      result += this.getOneRow(letter, paddingSpaces[idx], middleSpaces[idx]);
-      idx += 1;
-    }
-
-    while (idx >= 0) {
-      let letter = Diamond.LETTERS[idx];
-      result += this.getOneRow(letter, paddingSpaces[idx], middleSpaces[idx]);
-      idx -= 1;
-    }
-
-    return result;
-  }
-
-  // ================
-
-  static getOneRow(letter, padding, middleSpaces) {
-    if (letter === "A") {
-      return " ".repeat(padding) + "A" + " ".repeat(padding) + "\n";
-    }
-
-    let row = "";
-
-    row += " ".repeat(padding);
-    row += letter;
-    row += " ".repeat(middleSpaces);
-    row += letter;
-    row += " ".repeat(padding);
-    row += "\n";
-
-    return row;
-  }
+  return result;
 }
 
-module.exports = Diamond;
+// 2. Using arrays for padding sequences
 
-/* eslint max-lines-per-function:, max-statements: */
+/**
+ * @param {string} inputLetter
+ * @returns {string}
+ */
+function makeDiamond2(inputLetter) {
+  let result = "";
+  const letterIdx = LETTERS.indexOf(inputLetter);
+
+  const paddingSpaces = Array.from(
+    { length: letterIdx + 1 },
+    (_, idx) => letterIdx - idx
+  );
+  const middleSpaces = Array.from({ length: letterIdx + 1 }, (_, idx) =>
+    idx === 0 ? 0 : 2 * idx - 1
+  );
+
+  let idx = 0;
+  while (idx < letterIdx) {
+    const letter = assertDefined(LETTERS[idx]);
+    const numPadSpaces = assertDefined(paddingSpaces[idx]);
+    const numMiddleSpaces = assertDefined(middleSpaces[idx]);
+    result += getOneRow(letter, numPadSpaces, numMiddleSpaces);
+    idx += 1;
+  }
+
+  while (idx >= 0) {
+    const letter = assertDefined(LETTERS[idx]);
+    const numPadSpaces = assertDefined(paddingSpaces[idx]);
+    const numMiddleSpaces = assertDefined(middleSpaces[idx]);
+    result += getOneRow(letter, numPadSpaces, numMiddleSpaces);
+    idx -= 1;
+  }
+
+  return result;
+}
+
+// ================
+
+/**
+ * @param {string} letter
+ * @param {number} padding
+ * @param {number} middleSpaces
+ * @returns {string}
+ */
+function getOneRow(letter, padding, middleSpaces) {
+  if (letter === "A") {
+    return " ".repeat(padding) + "A" + " ".repeat(padding) + "\n";
+  }
+
+  let row = "";
+
+  row += " ".repeat(padding);
+  row += letter;
+  row += " ".repeat(middleSpaces);
+  row += letter;
+  row += " ".repeat(padding);
+  row += "\n";
+
+  return row;
+}
